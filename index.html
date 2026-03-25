@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fraud Detection System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<!-- 💰 Money Rain -->
+<div class="rain-container"></div>
+
+<div class="container">
+    <div class="card">
+
+        <h1 class="title">💳 Smart Fraud Detection</h1>
+        <p class="subtitle">AI Powered Secure Transactions</p>
+
+        <form action="/predict" method="post">
+
+            <input type="number" name="amount" placeholder="💰 Amount (₹)" required>
+
+            <input type="number" name="location" placeholder="📍 Location (0=Chennai,1=Delhi,2=Mumbai)" required>
+
+            <input type="number" name="time" placeholder="⏰ Time (0-23)" required>
+
+            <input type="number" name="device" placeholder="💻 Device (0=Mobile,1=Laptop,2=Unknown)" required>
+
+            <input type="number" name="transactions" placeholder="🔁 Transaction Count" required>
+
+            <button type="button" onclick="fillData()">⚡ Auto Fill</button>
+            <button type="submit">🔍 Predict</button>
+
+        </form>
+
+        {% if prediction_text %}
+            <h2 class="result">{{ prediction_text }}</h2>
+        {% endif %}
+
+    </div>
+</div>
+
+<script>
+function fillData() {
+    document.getElementsByName("amount")[0].value = 50000;
+    document.getElementsByName("location")[0].value = 2;
+    document.getElementsByName("time")[0].value = 1;
+    document.getElementsByName("device")[0].value = 2;
+    document.getElementsByName("transactions")[0].value = 1;
+}
+
+/* 💰 Rain Animation */
+const container = document.querySelector('.rain-container');
+
+function createRain() {
+    const symbols = ["💲", "₹", "💰", "🪙", "$"];
+
+    for (let i = 0; i < 70; i++) {
+        let drop = document.createElement("span");
+
+        drop.innerHTML = symbols[Math.floor(Math.random() * symbols.length)];
+
+        drop.style.left = Math.random() * 100 + "vw";
+        drop.style.animationDuration = (Math.random() * 3 + 2) + "s";
+        drop.style.fontSize = (Math.random() * 20 + 15) + "px";
+
+        container.appendChild(drop);
+    }
+}
+createRain();
+</script>
+
+</body>
+</html>
